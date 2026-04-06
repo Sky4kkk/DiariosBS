@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário BS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --gold: #FFD700; 
+            --dark-bg: #000000; 
+            --card-bg: #111111; 
+            --text-white: #ffffff;
+            --purple: #8a4fff;
+        }
+
+        body { 
+            background: var(--dark-bg); color: var(--text-white); 
+            font-family: 'Montserrat', sans-serif;
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 20px; margin: 0;
+        }
+
+        .container { width: 100%; max-width: 400px; }
+
+        /* Estilo da Logo */
+        .logo-img {
+            display: block;
+            margin: 0 auto 15px;
+            width: 120px; /* Ajuste o tamanho aqui */
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Título Dourado */
+        .header h1 { 
+            color: var(--gold); text-align: center; margin: 0; 
+            font-size: 34px; font-weight: 900;
+            text-shadow: 0px 4px 10px rgba(255, 215, 0, 0.3);
+        }
+        .header p { text-align: center; font-size: 10px; color: #888; margin-bottom: 25px; letter-spacing: 2px; }
+
+        /* Cards de Status */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-box { background: var(--card-bg); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #222; }
+        .stat-box small { font-size: 10px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: bold;}
+        .stat-box div { font-size: 22px; font-weight: 900; }
+
+        /* Barra de Progresso */
+        .prog-bg { background: #222; border-radius: 10px; height: 12px; margin-bottom: 25px; overflow: hidden; border: 1px solid #333; }
+        .prog-bar { background: linear-gradient(90deg, var(--purple), #b187ff); height: 100%; width: 0%; transition: 1s ease-in-out; }
+
+        /* Card de Formulário */
+        .form-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .form-card h3 { margin-top: 0; font-size: 18px; color: var(--gold); border-left: 4px solid var(--gold); padding-left: 10px; }
+        label { font-size: 10px; color: #666; font-weight: bold; text-transform: uppercase; }
+        input { width: 100%; padding: 15px; margin: 8px 0 18px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; font-size: 15px; }
+        input:focus { border-color: var(--gold); outline: none; }
+        
+        /* Botão Dourado Estilo Pro */
+        button { 
+            width: 100%; padding: 18px; background: var(--gold); border: none; 
+            border-radius: 12px; color: #000; font-weight: 900; 
+            cursor: pointer; font-size: 16px; text-transform: uppercase;
+            transition: 0.3s;
+        }
+        button:hover { transform: scale(1.02); background: #ffea00; }
+        button:disabled { background: #333; color: #666; }
+
+        /* Ranking */
+        .rank-title { margin: 35px 0 15px; font-weight: 900; display: flex; align-items: center; gap: 10px; color: var(--gold); text-transform: uppercase; font-size: 14px;}
+        .rank-item { background: var(--card-bg); padding: 15px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border: 1px solid #222; transition: 0.3s; }
+        .rank-1 { border: 2px solid var(--gold); background: linear-gradient(145deg, #111, #1a1600); }
+        .rank-1 .pos { color: var(--gold); font-size: 22px; }
+        
+        .pos { font-weight: 900; font-size: 18px; width: 35px; color: #555; }
+        .name { font-size: 16px; font-weight: 700; text-transform: uppercase; }
+        .partidas { background: #222; padding: 6px 15px; border-radius: 20px; font-size: 12px; color: var(--gold); font-weight: bold; border: 1px solid #333; }
+        
+        .alert-closed { background: rgba(255, 0, 0, 0.1); border: 1px solid #ff0000; padding: 20px; border-radius: 15px; display: none; text-align: center; color: #ff6666; font-weight: bold; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
+
+        <div style="text-align: right; color: #2ecc71; font-size: 10px; margin-bottom: 5px; font-weight: bold;">● STATUS: ONLINE</div>
+        
+        <div class="header">
+            <h1>DIÁRIO BS</h1>
+            <p>COMPETITIVO • RANKING • PREMIAÇÃO</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box"><small>VAGAS</small><div>10</div></div>
+            <div class="stat-box"><small>INSCRITOS</small><div id="n-insc">0</div></div>
+            <div class="stat-box"><small>RESTANTES</small><div id="n-rest">10</div></div>
+        </div>
+
+        <div class="prog-bg"><div id="bar" class="prog-bar"></div></div>
+
+        <div id="alert-lock" class="alert-closed">
+            🔒 DIÁRIO FECHADO NO MOMENTO
+        </div>
+
+        <div id="form-area" class="form-card">
+            <h3>➔ INSCREVER-SE</h3>
+            <label>NOME DO JOGADOR</label>
+            <input type="text" id="nome" placeholder="Ex: LEONARDO">
+            
+            <label>WHATSAPP (SÓ NÚMEROS)</label>
+            <input type="tel" id="cel" placeholder="11999998888">
+            
+            <button id="btn-enviar" onclick="enviar()">CONFIRMAR ENTRADA</button>
+        </div>
+
+        <div class="rank-title">🏆 TOP 10 ATIVOS</div>
+        <div id="ranking-list" style="color: #444; text-align: center; padding: 20px;">Sincronizando dados...</div>
+    </div>
+
+    <script>
+        const URL_API = "https://script.google.com/macros/s/AKfycbydeEhKoEX4wSZaApkPgrEnuzrg2Hj3aC_CWP8Y4pG1i0vhB2d05njNFN5CUm7D_JPO/exec";
+
+        async function carregarDados() {
+            try {
+                const res = await fetch(URL_API);
+                const dados = await res.json();
+                const total = dados.length;
+
+                document.getElementById('n-insc').innerText = total;
+                document.getElementById('n-rest').innerText = Math.max(0, 10 - total);
+                document.getElementById('bar').style.width = (Math.min(total, 10) * 10) + "%";
+
+                if(total >= 10) {
+                    document.getElementById('form-area').style.display = 'none';
+                    document.getElementById('alert-lock').style.display = 'block';
+                }
+
+                dados.sort((a, b) => (b[2] || 0) - (a[2] || 0));
+
+                const listHTML = dados.map((user, i) => `
+                    <div class="rank-item ${i === 0 ? 'rank-1' : ''}">
+                        <div style="display:flex; align-items:center;">
+                            <span class="pos">${i + 1}º</span>
+                            <span class="name">${user[0]}</span>
+                        </div>
+                        <span class="partidas">🎮 ${user[2] || 0}</span>
+                    </div>
+                `).join('');
+
+                document.getElementById('ranking-list').innerHTML = listHTML || "AGUARDANDO PRIMEIRO INSCRITO...";
+
+            } catch (e) {
+                document.getElementById('ranking-list').innerHTML = "<p style='color:red;'>ERRO DE SINCRONIZAÇÃO</p>";
+            }
+        }
+
+        async function enviar() {
+            const nome = document.getElementById('nome').value.trim();
+            const celular = document.getElementById('cel').value.trim();
+            if(!nome || !celular) return alert("Preencha todos os campos!");
+
+            const btn = document.getElementById('btn-enviar');
+            btn.innerText = "ENVIANDO...";
+            btn.disabled = true;
+
+            try {
+                await fetch(URL_API, {
+                    method: 'POST',
+                    body: JSON.stringify({ nome, celular })
+                });
+                alert("INSCRIÇÃO CONFIRMADA!");
+                location.reload();
+            } catch (e) {
+                alert("ERRO NO SERVIDOR. TENTE NOVAMENTE.");
+                btn.innerText = "CONFIRMAR ENTRADA";
+                btn.disabled = false;
+            }
+        }
+        carregarDados();
+    </script>
+</body>
+</html>
