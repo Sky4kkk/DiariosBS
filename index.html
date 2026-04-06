@@ -3,42 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diário BS - Inscrições</title>
+    <title>Diário BS - Lista</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --gold: #FFD700; 
-            --dark-bg: #000000; 
-            --card-bg: #111111; 
-            --text-white: #ffffff;
-            --purple: #8a4fff;
-        }
-
-        body { 
-            background: var(--dark-bg); color: var(--text-white); 
-            font-family: 'Montserrat', sans-serif;
-            display: flex; flex-direction: column; align-items: center; 
-            padding: 20px; margin: 0;
-        }
-
+        :root { --gold: #FFD700; --dark-bg: #000000; --card-bg: #111111; --text-white: #ffffff; --purple: #8a4fff; }
+        body { background: var(--dark-bg); color: var(--text-white); font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .container { width: 100%; max-width: 400px; }
+        
+        .header h1 { color: var(--gold); text-align: center; margin: 20px 0 5px; font-size: 34px; font-weight: 900; }
+        .header p { text-align: center; font-size: 10px; color: #888; margin-bottom: 25px; letter-spacing: 2px; text-transform: uppercase; }
 
-        .logo-img {
-            display: block;
-            margin: 0 auto 15px;
-            width: 120px;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        .header h1 { 
-            color: var(--gold); text-align: center; margin: 0; 
-            font-size: 34px; font-weight: 900;
-            text-shadow: 0px 4px 10px rgba(255, 215, 0, 0.3);
-        }
-        .header p { text-align: center; font-size: 10px; color: #888; margin-bottom: 25px; letter-spacing: 2px; }
-
-        /* Painel de Vagas */
+        /* Status */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .stat-box { background: var(--card-bg); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #222; }
         .stat-box small { font-size: 10px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: bold;}
@@ -47,82 +22,60 @@
         .prog-bg { background: #222; border-radius: 10px; height: 12px; margin-bottom: 25px; overflow: hidden; border: 1px solid #333; }
         .prog-bar { background: linear-gradient(90deg, var(--purple), #b187ff); height: 100%; width: 0%; transition: 1s ease-in-out; }
 
-        /* Card do Formulário */
-        .form-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .form-card h3 { margin-top: 0; font-size: 18px; color: var(--gold); border-left: 4px solid var(--gold); padding-left: 10px; margin-bottom: 20px;}
+        /* Form */
+        .form-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid #333; }
         label { font-size: 10px; color: #666; font-weight: bold; text-transform: uppercase; }
         input { width: 100%; padding: 15px; margin: 8px 0 18px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; font-size: 15px; font-family: 'Montserrat', sans-serif; }
-        input:focus { border-color: var(--gold); outline: none; }
-        
-        button { 
-            width: 100%; padding: 18px; background: var(--gold); border: none; 
-            border-radius: 12px; color: #000; font-weight: 900; 
-            cursor: pointer; font-size: 16px; text-transform: uppercase;
-            transition: 0.3s; font-family: 'Montserrat', sans-serif;
-        }
-        button:hover { transform: scale(1.02); background: #ffea00; }
+        button { width: 100%; padding: 18px; background: var(--gold); border: none; border-radius: 12px; color: #000; font-weight: 900; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
         button:disabled { background: #333; color: #666; }
 
-        /* Lista de Inscritos */
+        /* Lista Numerada */
         .rank-title { margin: 35px 0 15px; font-weight: 900; color: var(--gold); text-transform: uppercase; font-size: 14px; }
         .rank-item { background: var(--card-bg); padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 10px; border: 1px solid #222; }
         .rank-pos { color: var(--gold); font-weight: 900; width: 45px; font-size: 20px; }
         .player-info { display: flex; flex-direction: column; }
         .player-name { font-size: 16px; font-weight: 700; text-transform: uppercase; color: #fff; }
-        .player-sub { font-size: 11px; color: #555; font-weight: bold; letter-spacing: 1px; margin-top: 2px; }
+        .player-sub { font-size: 11px; color: #555; font-weight: bold; letter-spacing: 1px; }
         
-        .empty-slot { color: #333; font-style: italic; }
-
         .alert-closed { background: rgba(255, 0, 0, 0.1); border: 1px solid #ff0000; padding: 20px; border-radius: 15px; display: none; text-align: center; color: #ff6666; font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
-
-        <div style="text-align: right; color: #2ecc71; font-size: 10px; margin-bottom: 5px; font-weight: bold;">● STATUS: ONLINE</div>
-        
         <div class="header">
             <h1>DIÁRIO BS</h1>
-            <p>COMPETITIVO • LISTA DE INSCRITOS</p>
+            <p>LISTA DE INSCRITOS OFICIAL</p>
         </div>
 
         <div class="stats-grid">
-            <div class="stat-box"><small>VAGAS</small><div>10</div></div>
-            <div class="stat-box"><small>INSCRITOS</small><div id="n-insc">0</div></div>
-            <div class="stat-box"><small>RESTANTES</small><div id="n-rest">10</div></div>
+            <div class="stat-box"><small>TOTAL</small><div>10</div></div>
+            <div class="stat-box"><small>ENTROU</small><div id="n-insc">0</div></div>
+            <div class="stat-box"><small>RESTO</small><div id="n-rest">10</div></div>
         </div>
 
         <div class="prog-bg"><div id="bar" class="prog-bar"></div></div>
-
-        <div id="alert-lock" class="alert-closed">🔒 LISTA COMPLETA / FECHADA</div>
+        <div id="alert-lock" class="alert-closed">🔒 LISTA FECHADA</div>
 
         <div id="form-area" class="form-card">
-            <h3>➔ INSCREVER-SE</h3>
-            <label>NOME DO JOGADOR</label>
-            <input type="text" id="nome" placeholder="NOME DO JOGADOR">
-            
-            <label>WHATSAPP</label>
-            <input type="tel" id="cel" placeholder="Ex: 11999998888">
-            
+            <label>NOME</label>
+            <input type="text" id="nome" placeholder="NOME">
+            <label>NÚMERO</label>
+            <input type="tel" id="cel" placeholder="NÚMERO">
             <button id="btn-enviar" onclick="enviar()">CONFIRMAR ENTRADA</button>
         </div>
 
-        <div class="rank-title">🏆 LISTA (1º AO 10º)</div>
-        <div id="ranking-list">Sincronizando lista...</div>
+        <div class="rank-title">🏆 INSCRITOS (1-10)</div>
+        <div id="ranking-list">Sincronizando...</div>
     </div>
 
     <script>
-        const URL_API = "https://script.google.com/macros/s/AKfycbxgTGuFZB-I_NXlL734i6EWilxEXb49W0rlDacy4kpfNbT3xQhldGqYCFlfvxsK6WZPFg/exec";
+        const URL_API = "https://script.google.com/macros/s/AKfycbydeEhKoEX4wSZaApkPgrEnuzrg2Hj3aC_CWP8Y4pG1i0vhB2d05njNFN5CUm7D_JPO/exec";
 
-        // Função que oculta o número e deixa os últimos 4 visíveis
-        function formatarNumeroPrivado(num) {
-            if (!num) return "Aguardando...";
-            let str = num.toString().replace(/\D/g, '');
-            if (str.length < 4) return "****";
-            let visiveis = str.slice(-4);
-            return "*".repeat(str.length - 4) + visiveis;
+        function formatarNumero(num) {
+            if (!num) return "---";
+            let s = num.toString().replace(/\D/g, '');
+            return s.length > 4 ? "*".repeat(s.length - 4) + s.slice(-4) : s;
         }
 
         async function carregarDados() {
@@ -140,52 +93,39 @@
                     document.getElementById('alert-lock').style.display = 'block';
                 }
 
-                let listHTML = "";
+                let html = "";
                 for (let i = 0; i < 10; i++) {
-                    const user = dados[i];
-                    listHTML += `
+                    const u = dados[i];
+                    html += `
                         <div class="rank-item">
                             <span class="rank-pos">${i + 1}º</span>
                             <div class="player-info">
-                                <span class="player-name">${user ? user[0] : '<span class="empty-slot">VAGA DISPONÍVEL</span>'}</span>
-                                <span class="player-sub">${user ? 'TEL: ' + formatarNumeroPrivado(user[1]) : '---'}</span>
+                                <span class="player-name">${u ? u[0] : '<span style="color:#333">VAGO</span>'}</span>
+                                <span class="player-sub">${u ? 'ID: ' + formatarNumero(u[1]) : '---'}</span>
                             </div>
                         </div>
                     `;
                 }
-                document.getElementById('ranking-list').innerHTML = listHTML;
-
-            } catch (e) {
-                document.getElementById('ranking-list').innerHTML = "<p style='color:red;'>Erro ao carregar lista.</p>";
-            }
+                document.getElementById('ranking-list').innerHTML = html;
+            } catch (e) { document.getElementById('ranking-list').innerHTML = "Erro de conexão."; }
         }
 
         async function enviar() {
             const nome = document.getElementById('nome').value.trim();
             const celular = document.getElementById('cel').value.trim();
-            if(!nome || !celular) return alert("Preencha todos os campos!");
+            if(!nome || !celular) return alert("Preencha tudo!");
 
             const btn = document.getElementById('btn-enviar');
-            btn.innerText = "ENVIANDO...";
-            btn.disabled = true;
+            btn.innerText = "ENVIANDO..."; btn.disabled = true;
 
             try {
                 const res = await fetch(URL_API, { method: 'POST', body: JSON.stringify({ nome, celular }) });
                 const result = await res.json();
                 
-                if(result.status === "ja_inscrito") {
-                    alert("⚠️ ESSE NÚMERO JÁ ESTÁ NA LISTA!");
-                } else if(result.status === "lotado") {
-                    alert("⚠️ DESCULPE, A LISTA JÁ ESTÁ COMPLETA!");
-                } else {
-                    alert("✅ INSCRIÇÃO REALIZADA COM SUCESSO!");
-                    location.reload();
-                }
-            } catch (e) {
-                alert("ERRO AO ENVIAR. TENTE NOVAMENTE.");
-                btn.innerText = "CONFIRMAR ENTRADA";
-                btn.disabled = false;
-            }
+                if(result.status === "ja_inscrito") alert("Este número já está na lista!");
+                else { alert("Inscrito com sucesso!"); location.reload(); }
+            } catch (e) { alert("Erro ao enviar."); }
+            btn.innerText = "CONFIRMAR ENTRADA"; btn.disabled = false;
         }
         carregarDados();
     </script>
