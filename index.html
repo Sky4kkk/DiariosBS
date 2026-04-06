@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diário BS</title>
+    <title>Diário BS - Inscrições</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -23,16 +23,14 @@
 
         .container { width: 100%; max-width: 400px; }
 
-        /* Estilo da Logo */
         .logo-img {
             display: block;
             margin: 0 auto 15px;
-            width: 120px; /* Ajuste o tamanho aqui */
+            width: 120px;
             height: auto;
             border-radius: 10px;
         }
 
-        /* Título Dourado */
         .header h1 { 
             color: var(--gold); text-align: center; margin: 0; 
             font-size: 34px; font-weight: 900;
@@ -40,43 +38,41 @@
         }
         .header p { text-align: center; font-size: 10px; color: #888; margin-bottom: 25px; letter-spacing: 2px; }
 
-        /* Cards de Status */
+        /* Painel de Vagas */
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .stat-box { background: var(--card-bg); padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #222; }
         .stat-box small { font-size: 10px; color: var(--gold); display: block; margin-bottom: 5px; font-weight: bold;}
         .stat-box div { font-size: 22px; font-weight: 900; }
 
-        /* Barra de Progresso */
         .prog-bg { background: #222; border-radius: 10px; height: 12px; margin-bottom: 25px; overflow: hidden; border: 1px solid #333; }
         .prog-bar { background: linear-gradient(90deg, var(--purple), #b187ff); height: 100%; width: 0%; transition: 1s ease-in-out; }
 
-        /* Card de Formulário */
+        /* Card do Formulário */
         .form-card { background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .form-card h3 { margin-top: 0; font-size: 18px; color: var(--gold); border-left: 4px solid var(--gold); padding-left: 10px; }
+        .form-card h3 { margin-top: 0; font-size: 18px; color: var(--gold); border-left: 4px solid var(--gold); padding-left: 10px; margin-bottom: 20px;}
         label { font-size: 10px; color: #666; font-weight: bold; text-transform: uppercase; }
-        input { width: 100%; padding: 15px; margin: 8px 0 18px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; font-size: 15px; }
+        input { width: 100%; padding: 15px; margin: 8px 0 18px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; font-size: 15px; font-family: 'Montserrat', sans-serif; }
         input:focus { border-color: var(--gold); outline: none; }
         
-        /* Botão Dourado Estilo Pro */
         button { 
             width: 100%; padding: 18px; background: var(--gold); border: none; 
             border-radius: 12px; color: #000; font-weight: 900; 
             cursor: pointer; font-size: 16px; text-transform: uppercase;
-            transition: 0.3s;
+            transition: 0.3s; font-family: 'Montserrat', sans-serif;
         }
         button:hover { transform: scale(1.02); background: #ffea00; }
         button:disabled { background: #333; color: #666; }
 
-        /* Ranking */
-        .rank-title { margin: 35px 0 15px; font-weight: 900; display: flex; align-items: center; gap: 10px; color: var(--gold); text-transform: uppercase; font-size: 14px;}
-        .rank-item { background: var(--card-bg); padding: 15px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border: 1px solid #222; transition: 0.3s; }
-        .rank-1 { border: 2px solid var(--gold); background: linear-gradient(145deg, #111, #1a1600); }
-        .rank-1 .pos { color: var(--gold); font-size: 22px; }
+        /* Lista de Inscritos */
+        .rank-title { margin: 35px 0 15px; font-weight: 900; color: var(--gold); text-transform: uppercase; font-size: 14px; }
+        .rank-item { background: var(--card-bg); padding: 12px 15px; border-radius: 12px; display: flex; align-items: center; margin-bottom: 10px; border: 1px solid #222; }
+        .rank-pos { color: var(--gold); font-weight: 900; width: 45px; font-size: 20px; }
+        .player-info { display: flex; flex-direction: column; }
+        .player-name { font-size: 16px; font-weight: 700; text-transform: uppercase; color: #fff; }
+        .player-sub { font-size: 11px; color: #555; font-weight: bold; letter-spacing: 1px; margin-top: 2px; }
         
-        .pos { font-weight: 900; font-size: 18px; width: 35px; color: #555; }
-        .name { font-size: 16px; font-weight: 700; text-transform: uppercase; }
-        .partidas { background: #222; padding: 6px 15px; border-radius: 20px; font-size: 12px; color: var(--gold); font-weight: bold; border: 1px solid #333; }
-        
+        .empty-slot { color: #333; font-style: italic; }
+
         .alert-closed { background: rgba(255, 0, 0, 0.1); border: 1px solid #ff0000; padding: 20px; border-radius: 15px; display: none; text-align: center; color: #ff6666; font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
@@ -89,7 +85,7 @@
         
         <div class="header">
             <h1>DIÁRIO BS</h1>
-            <p>COMPETITIVO • RANKING • PREMIAÇÃO</p>
+            <p>COMPETITIVO • LISTA DE INSCRITOS</p>
         </div>
 
         <div class="stats-grid">
@@ -100,27 +96,34 @@
 
         <div class="prog-bg"><div id="bar" class="prog-bar"></div></div>
 
-        <div id="alert-lock" class="alert-closed">
-            🔒 DIÁRIO FECHADO NO MOMENTO
-        </div>
+        <div id="alert-lock" class="alert-closed">🔒 LISTA COMPLETA / FECHADA</div>
 
         <div id="form-area" class="form-card">
             <h3>➔ INSCREVER-SE</h3>
             <label>NOME DO JOGADOR</label>
-            <input type="text" id="nome" placeholder="Ex: LEONARDO">
+            <input type="text" id="nome" placeholder="NOME DO JOGADOR">
             
-            <label>WHATSAPP (SÓ NÚMEROS)</label>
-            <input type="tel" id="cel" placeholder="11999998888">
+            <label>WHATSAPP</label>
+            <input type="tel" id="cel" placeholder="Ex: 11999998888">
             
             <button id="btn-enviar" onclick="enviar()">CONFIRMAR ENTRADA</button>
         </div>
 
-        <div class="rank-title">🏆 TOP 10 ATIVOS</div>
-        <div id="ranking-list" style="color: #444; text-align: center; padding: 20px;">Sincronizando dados...</div>
+        <div class="rank-title">🏆 LISTA (1º AO 10º)</div>
+        <div id="ranking-list">Sincronizando lista...</div>
     </div>
 
     <script>
         const URL_API = "https://script.google.com/macros/s/AKfycbydeEhKoEX4wSZaApkPgrEnuzrg2Hj3aC_CWP8Y4pG1i0vhB2d05njNFN5CUm7D_JPO/exec";
+
+        // Função que oculta o número e deixa os últimos 4 visíveis
+        function formatarNumeroPrivado(num) {
+            if (!num) return "Aguardando...";
+            let str = num.toString().replace(/\D/g, '');
+            if (str.length < 4) return "****";
+            let visiveis = str.slice(-4);
+            return "*".repeat(str.length - 4) + visiveis;
+        }
 
         async function carregarDados() {
             try {
@@ -137,22 +140,23 @@
                     document.getElementById('alert-lock').style.display = 'block';
                 }
 
-                dados.sort((a, b) => (b[2] || 0) - (a[2] || 0));
-
-                const listHTML = dados.map((user, i) => `
-                    <div class="rank-item ${i === 0 ? 'rank-1' : ''}">
-                        <div style="display:flex; align-items:center;">
-                            <span class="pos">${i + 1}º</span>
-                            <span class="name">${user[0]}</span>
+                let listHTML = "";
+                for (let i = 0; i < 10; i++) {
+                    const user = dados[i];
+                    listHTML += `
+                        <div class="rank-item">
+                            <span class="rank-pos">${i + 1}º</span>
+                            <div class="player-info">
+                                <span class="player-name">${user ? user[0] : '<span class="empty-slot">VAGA DISPONÍVEL</span>'}</span>
+                                <span class="player-sub">${user ? 'TEL: ' + formatarNumeroPrivado(user[1]) : '---'}</span>
+                            </div>
                         </div>
-                        <span class="partidas">🎮 ${user[2] || 0}</span>
-                    </div>
-                `).join('');
-
-                document.getElementById('ranking-list').innerHTML = listHTML || "AGUARDANDO PRIMEIRO INSCRITO...";
+                    `;
+                }
+                document.getElementById('ranking-list').innerHTML = listHTML;
 
             } catch (e) {
-                document.getElementById('ranking-list').innerHTML = "<p style='color:red;'>ERRO DE SINCRONIZAÇÃO</p>";
+                document.getElementById('ranking-list').innerHTML = "<p style='color:red;'>Erro ao carregar lista.</p>";
             }
         }
 
@@ -166,14 +170,19 @@
             btn.disabled = true;
 
             try {
-                await fetch(URL_API, {
-                    method: 'POST',
-                    body: JSON.stringify({ nome, celular })
-                });
-                alert("INSCRIÇÃO CONFIRMADA!");
-                location.reload();
+                const res = await fetch(URL_API, { method: 'POST', body: JSON.stringify({ nome, celular }) });
+                const result = await res.json();
+                
+                if(result.status === "ja_inscrito") {
+                    alert("⚠️ ESSE NÚMERO JÁ ESTÁ NA LISTA!");
+                } else if(result.status === "lotado") {
+                    alert("⚠️ DESCULPE, A LISTA JÁ ESTÁ COMPLETA!");
+                } else {
+                    alert("✅ INSCRIÇÃO REALIZADA COM SUCESSO!");
+                    location.reload();
+                }
             } catch (e) {
-                alert("ERRO NO SERVIDOR. TENTE NOVAMENTE.");
+                alert("ERRO AO ENVIAR. TENTE NOVAMENTE.");
                 btn.innerText = "CONFIRMAR ENTRADA";
                 btn.disabled = false;
             }
